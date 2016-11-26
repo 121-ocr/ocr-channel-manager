@@ -1,0 +1,21 @@
+一、渠道分类
+ba_channel_type: {
+	   "code": "ch001",
+	   "name": "加盟店"
+	}
+	
+二、渠道档案VO
+ba_sales_channels:
+{
+	    "code": "N0001",
+	    "name": "卡洛北方贸易公司",
+	     "channel_type": {
+    		"code": "ch001",
+    		"name": "加盟店"
+         },
+    	"customer": {
+    		"code": "cus0001",
+    		"name": "昌平北环商贸有限公司"
+    	},
+    	"account": "4"
+}
