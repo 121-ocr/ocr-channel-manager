@@ -126,14 +126,7 @@
     		"id": 51,
         	"text":"渠道补货",
         	"attributes":{   
-	            "url":"channelManagement/channelRestocking/replenishment.html" 
-	        }
-    	},
-    	{   
-    		"id": 32,
-        	"text":"采购订单",
-        	"attributes":{   
-	            "url":"goodCenterApp/brandMgr/bandMgrList2.html" 
+	            "url":"sales-center/channel-restocking/replenishment.html" 
 	        }
     	}
     ]   
