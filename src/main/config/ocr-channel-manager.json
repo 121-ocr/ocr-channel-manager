@@ -1,8 +1,8 @@
 {
-	"main": "ocr.channel.manager.App",
+	"main": "ocr.channel.App",
 	"options": {
 		"config": {
-			"version_id": 4,
+			"version_id": 6,
 			"service_name": "ocr-channel-manager",
 			"app_inst_scope": ["1~1000"],
 			"app_desc": "渠道管理服务",
@@ -11,7 +11,7 @@
 			"isolation_vertx_pool": false,			
 			"run_webserver": true,
 			"webserver_config": {
-				"webserver_port": 8085,
+				"webserver_port": 8080,
 				"eventbus_enabled": true,
 				"static_res_service": true
 			},

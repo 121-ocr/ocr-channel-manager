@@ -1,4 +1,4 @@
-package ocr.channel.organization;
+package ocr.channel.supplyrelation;
 
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.json.JsonArray;
@@ -11,15 +11,15 @@ import otocloud.framework.core.HandlerDescriptor;
 import otocloud.framework.core.OtoCloudBusMessage;
 
 /**
- * TODO: 渠道树查询
+ * TODO: 供货仓库查询
  * @date 2016年11月15日
  * @author lijing
  */
-public class ChannelTreeQueryHandler extends ActionHandlerImpl<JsonArray> {
+public class SupplyWarehouseQueryHandler extends ActionHandlerImpl<JsonArray> {
 	
-	public static final String ADDRESS = "findtree";
+	public static final String ADDRESS = "get_supplywarehouses";
 
-	public ChannelTreeQueryHandler(AppActivityImpl appActivity) {
+	public SupplyWarehouseQueryHandler(AppActivityImpl appActivity) {
 		super(appActivity);
 		// TODO Auto-generated constructor stub
 	}
@@ -35,7 +35,7 @@ public class ChannelTreeQueryHandler extends ActionHandlerImpl<JsonArray> {
 	@Override
 	public void handle(OtoCloudBusMessage<JsonArray> msg) {
 		
-		String menusFilePath = OtoCloudDirectoryHelper.getConfigDirectory() + "channel-tree.json";		
+		String menusFilePath = OtoCloudDirectoryHelper.getConfigDirectory() + "warehouses.json";		
 		
 		this.getAppActivity().getVertx().fileSystem().readFile(menusFilePath, result -> {
     	    if (result.succeeded()) {

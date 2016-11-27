@@ -17,7 +17,7 @@ import otocloud.framework.core.OtoCloudBusMessage;
  */
 public class ChannelTypeQueryHandler extends ActionHandlerImpl<JsonArray> {
 	
-	public static final String ADDRESS = "channel_type";
+	public static final String ADDRESS = "channel_type.get";
 
 	public ChannelTypeQueryHandler(AppActivityImpl appActivity) {
 		super(appActivity);

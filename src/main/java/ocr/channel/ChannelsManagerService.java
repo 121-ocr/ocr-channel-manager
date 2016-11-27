@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ocr.channel.organization.ChannelOrganizationComponent;
+import ocr.channel.supplyrelation.SupplyRelationComponent;
 import otocloud.framework.app.engine.AppServiceImpl;
 import otocloud.framework.app.engine.WebServer;
 import otocloud.framework.app.function.AppActivity;
@@ -33,19 +34,13 @@ public class ChannelsManagerService extends AppServiceImpl
 	//创建服务内的业务活动组件
 	@Override
 	public List<AppActivity> createBizActivities() {
-		List<AppActivity> retActivities = new ArrayList<>();
-		
-/*		CatelogManagementComponent catelogCom = new CatelogManagementComponent();
-		retActivities.add(catelogCom);
-				
-		ProductManagementComponent productCom = new ProductManagementComponent();
-		retActivities.add(productCom);
-		
-		SalesOrderComponent soCom = new SalesOrderComponent();
-		retActivities.add(soCom);*/
-		
+		List<AppActivity> retActivities = new ArrayList<>();		
+	
 		ChannelOrganizationComponent channelOrganizationComponent = new ChannelOrganizationComponent();
 		retActivities.add(channelOrganizationComponent);
+		
+		SupplyRelationComponent supplyRelationComponent = new SupplyRelationComponent();
+		retActivities.add(supplyRelationComponent);
 
 		return retActivities;
 	}

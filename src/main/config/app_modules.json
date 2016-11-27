@@ -1,0 +1,171 @@
+[
+{   
+    "id":1,   
+    "text":"商品中心",   
+    "children":[
+    	{   
+    		"id": 11,
+        	"text":"品类规划",
+        	"attributes":{   
+	            "url":"/demo/book/abc" 
+	        }
+    	},
+    	{   
+    		"id": 12,
+        	"text":"品牌管理",
+        	"attributes":{   
+	            "url":"/demo/book/abc" 
+	        }
+    	},
+    	{   
+    		"id": 13,
+        	"text":"商品档案管理",
+        	"attributes":{   
+	            "url":"/demo/book/abc" 
+	        }
+    	}
+    ]   
+
+},
+{   
+    "id":4,   
+    "text":"渠道管理",   
+    "children":[
+    	{   
+    		"id": 41,
+        	"text":"渠道组织管理",
+        	"attributes":{   
+	            "url":"/demo/book/abc" 
+	        }
+    	},
+    	{   
+    		"id": 42,
+        	"text":"渠道补货关系",
+        	"attributes":{   
+	            "url":"/demo/book/abc" 
+	        }
+    	},
+    	{   
+    		"id": 43,
+        	"text":"价格及佣金政策",
+        	"attributes":{   
+	            "url":"/demo/book/abc" 
+	        }
+    	}
+    ]   
+
+},
+{   
+    "id":3,   
+    "text":"采购管理",   
+    "children":[
+    	{   
+    		"id": 31,
+        	"text":"供应商管理",
+        	"attributes":{   
+	            "url":"/demo/book/abc" 
+	        }
+    	},
+    	{   
+    		"id": 32,
+        	"text":"采购订单",
+        	"attributes":{   
+	            "url":"/demo/book/abc" 
+	        }
+    	}
+    ]   
+
+},
+{   
+    "id":2,   
+    "text":"库存中心",   
+    "children":[
+    	{   
+    		"id": 21,
+        	"text":"库存组织规划",
+        	"attributes":{   
+	            "url":"/demo/book/abc" 
+	        }
+    	},
+    	{   
+    		"id": 22,
+        	"text":"仓储设施管理",
+        	"attributes":{   
+	            "url":"/demo/book/abc" 
+	        }
+    	},
+    	{   
+    		"id": 23,
+        	"text":"采购入库",
+        	"attributes":{   
+	            "url":"invcenter/purchasein/list.html" 
+	        }
+    	},
+    	{   
+    		"id": 24,
+        	"text":"拣货出库",
+        	"attributes":{   
+	            "url":"/demo/book/abc" 
+	        }
+    	},
+    	{   
+    		"id": 25,
+        	"text":"现存量查询",
+        	"attributes":{   
+	            "url":"/demo/book/abc" 
+	        }
+    	}
+    ]   
+
+},
+{   
+    "id":5,   
+    "text":"营销中心",   
+    "children":[
+    	{   
+    		"id": 51,
+        	"text":"渠道补货",
+        	"attributes":{   
+	            "url":"channelManagement/channelRestocking/replenishment.html" 
+	        }
+    	},
+    	{   
+    		"id": 32,
+        	"text":"采购订单",
+        	"attributes":{   
+	            "url":"goodCenterApp/brandMgr/bandMgrList2.html" 
+	        }
+    	}
+    ]   
+
+},
+{   
+    "id":6,   
+    "text":"门店系统",   
+    "children":[
+    	{   
+    		"id": 61,
+        	"text":"补货调拨",
+        	"attributes":{   
+	            "url":"/demo/book/abc" 
+	        }
+    	},
+    	{   
+    		"id": 62,
+        	"text":"库存管理",
+        	"attributes":{   
+	            "url":"/demo/book/abc" 
+	        }
+    	},
+    	{   
+    		"id": 63,
+        	"text":"零售开单",
+        	"attributes":{   
+	            "url":"/demo/book/abc" 
+	        }
+    	}
+    ]   
+
+}
+
+]

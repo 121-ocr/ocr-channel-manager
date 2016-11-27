@@ -1,4 +1,4 @@
-package ocr.channel.organization;
+package ocr.channel.supplyrelation;
 
 
 import java.util.ArrayList;
@@ -10,24 +10,24 @@ import otocloud.framework.core.OtoCloudEventDescriptor;
 import otocloud.framework.core.OtoCloudEventHandlerRegistry;
 
 /**
- * TODO: 渠道组织管理
+ * TODO: 供货关系管理
  * @date 2016年11月15日
  * @author lijing
  */
-public class ChannelOrganizationComponent extends AppActivityImpl {
+public class SupplyRelationComponent extends AppActivityImpl {
 
 	//业务活动组件名
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
-		return "channel-org-mgr";
+		return "supplyrelation-mgr";
 	}
 	
 	//业务活动组件要处理的核心业务对象
 	@Override
 	public String getBizObjectType() {
 		// TODO Auto-generated method stub
-		return "ba_sales_channels";
+		return "bc_supply_relations";
 	}
 
 	//发布此业务活动关联的业务角色
@@ -54,15 +54,9 @@ public class ChannelOrganizationComponent extends AppActivityImpl {
 	public List<OtoCloudEventHandlerRegistry> registerEventHandlers() {
 		// TODO Auto-generated method stub
 		List<OtoCloudEventHandlerRegistry> ret = new ArrayList<OtoCloudEventHandlerRegistry>();
-		
-		AppModulesQueryHandler appModulesQueryHandler = new AppModulesQueryHandler(this);
-		ret.add(appModulesQueryHandler);
 
-		ChannelTreeQueryHandler channelTreeQueryHandler = new ChannelTreeQueryHandler(this);
-		ret.add(channelTreeQueryHandler);
-		
-		ChannelTypeQueryHandler channelTypeQueryHandler = new ChannelTypeQueryHandler(this);
-		ret.add(channelTypeQueryHandler);
+		SupplyWarehouseQueryHandler supplyWarehouseQueryHandler = new SupplyWarehouseQueryHandler(this);
+		ret.add(supplyWarehouseQueryHandler);
 		
 		return ret;
 	}

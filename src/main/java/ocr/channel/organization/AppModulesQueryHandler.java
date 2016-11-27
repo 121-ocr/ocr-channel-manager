@@ -11,15 +11,15 @@ import otocloud.framework.core.HandlerDescriptor;
 import otocloud.framework.core.OtoCloudBusMessage;
 
 /**
- * TODO: 渠道树查询
+ * TODO: 应用模块查询
  * @date 2016年11月15日
  * @author lijing
  */
-public class ChannelTreeQueryHandler extends ActionHandlerImpl<JsonArray> {
+public class AppModulesQueryHandler extends ActionHandlerImpl<JsonArray> {
 	
-	public static final String ADDRESS = "findtree";
+	public static final String ADDRESS = "getmodules";
 
-	public ChannelTreeQueryHandler(AppActivityImpl appActivity) {
+	public AppModulesQueryHandler(AppActivityImpl appActivity) {
 		super(appActivity);
 		// TODO Auto-generated constructor stub
 	}
@@ -35,7 +35,7 @@ public class ChannelTreeQueryHandler extends ActionHandlerImpl<JsonArray> {
 	@Override
 	public void handle(OtoCloudBusMessage<JsonArray> msg) {
 		
-		String menusFilePath = OtoCloudDirectoryHelper.getConfigDirectory() + "channel-tree.json";		
+		String menusFilePath = OtoCloudDirectoryHelper.getConfigDirectory() + "app_modules.json";		
 		
 		this.getAppActivity().getVertx().fileSystem().readFile(menusFilePath, result -> {
     	    if (result.succeeded()) {

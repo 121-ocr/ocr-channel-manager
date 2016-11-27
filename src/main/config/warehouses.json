@@ -1,0 +1,26 @@
+[
+{
+   "code": "WH001",
+   "name": "北京总仓",   
+   "type": "1",
+   "character": "2",
+   "owner_org": {
+   		"code": "ORG001",
+   		"name": "卡洛公司"
+   },
+   "vmi_org": {},
+   "address": "北京市大兴区38号"
+},
+{
+    "code": "WH002",
+	"name": "河北总仓",
+   "type": "1",
+   "character": "2",
+   "owner_org": {
+   		"code": "ORG001",
+   		"name": "卡洛公司"
+   },
+   "vmi_org": {},
+   "address": "河北省保定市"
+}
+]
