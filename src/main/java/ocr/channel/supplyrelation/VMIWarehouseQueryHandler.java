@@ -1,6 +1,9 @@
 package ocr.channel.supplyrelation;
 
+import java.util.List;
+
 import io.vertx.core.http.HttpMethod;
+import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import otocloud.common.ActionURI;
 import otocloud.framework.app.function.ActionDescriptor;
@@ -51,7 +54,64 @@ public class VMIWarehouseQueryHandler extends ActionHandlerImpl<JsonObject> {
 		appActivity.getAppDatasource().getMongoClient().find("bc_vmi_relations", 
 				query, findRet->{
 					if (findRet.succeeded()) {
-						msg.reply(findRet.result());
+					
+						List<JsonObject> vmiRelations = findRet.result();
+						if(vmiRelations != null && vmiRelations.size() > 0){	
+							//构建仓库档案查询条件
+							JsonObject queryInv = new JsonObject();
+							if(vmiRelations.size() == 1){
+								queryInv.put("code", vmiRelations.get(0).getString("warehouse_code"));
+							}else{
+								JsonArray queryItems = new JsonArray();
+								queryInv.put("$or", queryItems);								
+								for(JsonObject vmiRelation : vmiRelations){
+									queryItems.add(new JsonObject().put("code", vmiRelation.getString("warehouse_code")));
+								}
+							}							
+							
+							//取仓库档案							
+							String invSrvName = this.appActivity.getDependencies().getJsonObject("inventorycenter_service").getString("service_name","");
+							String getWarehouseAddress = warehouseAccount + "." + invSrvName + "." + "invorg-mgr.query";							
+							this.appActivity.getEventBus().send(getWarehouseAddress,
+									queryInv, invRet->{
+										if(invRet.succeeded()){
+											JsonObject ret = (JsonObject)invRet.result().body();
+											if(ret == null){
+												msg.reply(vmiRelations);
+												return;
+											}
+											JsonArray warehouses = ret.getJsonArray("result");
+											if(warehouses != null && warehouses.size() > 0){							
+												if(vmiRelations.size() == 1){
+													vmiRelations.get(0).put("ba_warehouses", warehouses.getJsonObject(0));
+												}else{													
+													for(JsonObject vmiRelation : vmiRelations){
+														String whCode = vmiRelation.getString("warehouse_code");
+														for(Object item : warehouses){
+															JsonObject warehouse = (JsonObject)item;
+															if(warehouse.getString("code").equals(whCode)){
+																vmiRelation.put("ba_warehouses", warehouse);
+																break;
+															}
+														}
+													}
+												}											
+											}	
+											msg.reply(vmiRelations);											
+										}else{
+											Throwable err = invRet.cause();
+											String errMsg = err.getMessage();
+											appActivity.getLogger().error(errMsg, err);
+											
+											msg.reply(vmiRelations);
+										}								
+										
+										
+							});	
+						}else{
+							msg.reply(vmiRelations);
+						}
+						
 					} else {
 						Throwable err = findRet.cause();
 						String errMsg = err.getMessage();

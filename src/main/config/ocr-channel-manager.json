@@ -41,7 +41,18 @@
 			"inst_common": {
 				"component_common": {
 				},
-				"component_config": {
+				"component_config": { 
+				      "supplyrelation-mgr": {
+				      		"options": {
+		        				"config" :  {
+		        				    "dependencies":{
+			        					"inventorycenter_service": {
+			        						"service_name": "ocr-inventorycenter"
+			        					}
+		        					}
+								}
+							 }
+					   }
 				},
 				"component_deployment": []
 			},

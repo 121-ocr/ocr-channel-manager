@@ -3,11 +3,17 @@ ba_sales_channels:
 {
     "code": "N0001",
     "name": "卡洛北方贸易公司",
-    "channel_type": 3,
-    "level": 1,
+    "channel_type": {
+    	"code": "ch01",
+    	"name": "加盟店"
+    }
+    "level": {
+    	"code": "lv01",
+    	"name": "一级"
+    }
     "region": {
     	"code": "100000",
-    	"name": "北京"        
+    	"full_name": "北京"        
     },
     "ship_to": {
     	"address": {

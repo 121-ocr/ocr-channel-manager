@@ -32,7 +32,7 @@ rest api: ocr-channel-manager/supplyrelation-mgr/bc_vmi_relations.get, http: POS
 input:
 {
    "goods_owner": "3" //货主账户
-   "warehouse_account": 4 //渠道租户ID
+   "warehouse_account": "4" //渠道租户ID
 }
 output: vo[bc_vmi_relations]
 

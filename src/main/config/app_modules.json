@@ -122,11 +122,18 @@
     "id":5,   
     "text":"营销中心",   
     "children":[
-    	{   
+       	{   
     		"id": 51,
         	"text":"渠道补货",
         	"attributes":{   
-	            "url":"sales-center/channel-restocking/replenishment.html" 
+	            "url":"sales-center/channel-replenishment/channelreplenishment.html" 
+	        }
+    	},
+    	{   
+    		"id": 52,
+        	"text":"渠道补货单管理",
+        	"attributes":{   
+	            "url":"sales-center/channel-replenishment/replenishment.html" 
 	        }
     	}
     ]   
