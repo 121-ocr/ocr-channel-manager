@@ -1,9 +1,9 @@
 package ocr.channel.organization;
 
 import io.vertx.core.http.HttpMethod;
-import io.vertx.core.json.JsonArray;
+import io.vertx.core.json.JsonObject;
 import otocloud.common.ActionURI;
-import otocloud.common.OtoCloudDirectoryHelper;
+import otocloud.framework.app.common.PagingOptions;
 import otocloud.framework.app.function.ActionDescriptor;
 import otocloud.framework.app.function.ActionHandlerImpl;
 import otocloud.framework.app.function.AppActivityImpl;
@@ -11,15 +11,15 @@ import otocloud.framework.core.HandlerDescriptor;
 import otocloud.framework.core.OtoCloudBusMessage;
 
 /**
- * TODO: 渠道类型查询
+ * TODO: 渠道列表查询
  * @date 2016年11月15日
  * @author lijing
  */
-public class ChannelTypeQueryHandler extends ActionHandlerImpl<JsonArray> {
+public class ChannelQueryHandler extends ActionHandlerImpl<JsonObject> {
 	
-	public static final String ADDRESS = "channel_type.get";
+	public static final String ADDRESS = "findall";
 
-	public ChannelTypeQueryHandler(AppActivityImpl appActivity) {
+	public ChannelQueryHandler(AppActivityImpl appActivity) {
 		super(appActivity);
 		// TODO Auto-generated constructor stub
 	}
@@ -31,28 +31,26 @@ public class ChannelTypeQueryHandler extends ActionHandlerImpl<JsonArray> {
 		return ADDRESS;
 	}
 
-	//处理器
+    /**
+     * 查询渠道专员所负责的渠道
+     * 1、分页条件中传入渠道专员作为条件：   query: { channel_assistant: lj } 
+     */
 	@Override
-	public void handle(OtoCloudBusMessage<JsonArray> msg) {
+	public void handle(OtoCloudBusMessage<JsonObject> msg) {
 		
-		String menusFilePath = OtoCloudDirectoryHelper.getConfigDirectory() + "channel-type.json";		
-		
-		this.getAppActivity().getVertx().fileSystem().readFile(menusFilePath, result -> {
-    	    if (result.succeeded()) {
-    	    	String fileContent = result.result().toString(); 
-    	        
-    	    	JsonArray srvCfg = new JsonArray(fileContent);
-    	        msg.reply(srvCfg);     	        
-    	        
-    	    } else {
-				Throwable errThrowable = result.cause();
+		JsonObject queryParams = msg.body();
+	    PagingOptions pagingObj = PagingOptions.buildPagingOptions(queryParams);        
+	    this.queryBizDataList(appActivity.getBizObjectType(), pagingObj, null, findRet -> {
+	        if (findRet.succeeded()) {
+	            msg.reply(findRet.result());
+	        } else {
+				Throwable errThrowable = findRet.cause();
 				String errMsgString = errThrowable.getMessage();
 				appActivity.getLogger().error(errMsgString, errThrowable);
 				msg.fail(100, errMsgString);		
-   
-    	    }	
-		});
+	        }
 
+	    });
 
 	}
 	
@@ -74,7 +72,7 @@ public class ChannelTypeQueryHandler extends ActionHandlerImpl<JsonArray> {
 		
 		actionDescriptor.getHandlerDescriptor().setParamsDesc(paramsDesc);	*/
 				
-		ActionURI uri = new ActionURI(ADDRESS, HttpMethod.GET);
+		ActionURI uri = new ActionURI(ADDRESS, HttpMethod.POST);
 		handlerDescriptor.setRestApiURI(uri);
 		
 		return actionDescriptor;

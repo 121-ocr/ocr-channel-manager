@@ -1,9 +1,8 @@
 package ocr.channel.supplyrelation;
 
 import io.vertx.core.http.HttpMethod;
-import io.vertx.core.json.JsonArray;
+import io.vertx.core.json.JsonObject;
 import otocloud.common.ActionURI;
-import otocloud.common.OtoCloudDirectoryHelper;
 import otocloud.framework.app.function.ActionDescriptor;
 import otocloud.framework.app.function.ActionHandlerImpl;
 import otocloud.framework.app.function.AppActivityImpl;
@@ -11,15 +10,15 @@ import otocloud.framework.core.HandlerDescriptor;
 import otocloud.framework.core.OtoCloudBusMessage;
 
 /**
- * TODO: 供货仓库查询
+ * TODO: VMI仓库查询
  * @date 2016年11月15日
  * @author lijing
  */
-public class SupplyWarehouseQueryHandler extends ActionHandlerImpl<JsonArray> {
+public class VMIWarehouseQueryHandler extends ActionHandlerImpl<JsonObject> {
 	
-	public static final String ADDRESS = "get_supplywarehouses";
+	public static final String ADDRESS = "bc_vmi_relations.get";
 
-	public SupplyWarehouseQueryHandler(AppActivityImpl appActivity) {
+	public VMIWarehouseQueryHandler(AppActivityImpl appActivity) {
 		super(appActivity);
 		// TODO Auto-generated constructor stub
 	}
@@ -31,27 +30,36 @@ public class SupplyWarehouseQueryHandler extends ActionHandlerImpl<JsonArray> {
 		return ADDRESS;
 	}
 
-	//处理器
+	
+    /**
+     * 查询补货关系：
+     * 1、传入渠道租户ID，和企业租户ID组合成条件
+     * 2、在VMI关系表(bc_vmi_relations)中查询货主是本企业的渠道仓库
+     */
 	@Override
-	public void handle(OtoCloudBusMessage<JsonArray> msg) {
+	public void handle(OtoCloudBusMessage<JsonObject> msg) {
 		
-		String menusFilePath = OtoCloudDirectoryHelper.getConfigDirectory() + "warehouses.json";		
+		JsonObject body = msg.body();
 		
-		this.getAppActivity().getVertx().fileSystem().readFile(menusFilePath, result -> {
-    	    if (result.succeeded()) {
-    	    	String fileContent = result.result().toString(); 
-    	        
-    	    	JsonArray srvCfg = new JsonArray(fileContent);
-    	        msg.reply(srvCfg);     	        
-    	        
-    	    } else {
-				Throwable errThrowable = result.cause();
-				String errMsgString = errThrowable.getMessage();
-				appActivity.getLogger().error(errMsgString, errThrowable);
-				msg.fail(100, errMsgString);		
-   
-    	    }	
-		});
+		String goodsOwner = this.appActivity.getAppInstContext().getAccount();		
+		String warehouseAccount = body.getString("warehouse_account");
+		
+		JsonObject query = new JsonObject();
+		query.put("goods_owner", goodsOwner);
+		query.put("warehouse_account", warehouseAccount);
+		
+		appActivity.getAppDatasource().getMongoClient().find("bc_vmi_relations", 
+				query, findRet->{
+					if (findRet.succeeded()) {
+						msg.reply(findRet.result());
+					} else {
+						Throwable err = findRet.cause();
+						String errMsg = err.getMessage();
+						appActivity.getLogger().error(errMsg, err);
+						msg.fail(500, errMsg);
+					}
+					
+				});			
 
 
 	}
@@ -74,7 +82,7 @@ public class SupplyWarehouseQueryHandler extends ActionHandlerImpl<JsonArray> {
 		
 		actionDescriptor.getHandlerDescriptor().setParamsDesc(paramsDesc);	*/
 				
-		ActionURI uri = new ActionURI(ADDRESS, HttpMethod.GET);
+		ActionURI uri = new ActionURI(ADDRESS, HttpMethod.POST);
 		handlerDescriptor.setRestApiURI(uri);
 		
 		return actionDescriptor;

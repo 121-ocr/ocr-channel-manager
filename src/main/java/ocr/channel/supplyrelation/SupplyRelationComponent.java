@@ -10,7 +10,7 @@ import otocloud.framework.core.OtoCloudEventDescriptor;
 import otocloud.framework.core.OtoCloudEventHandlerRegistry;
 
 /**
- * TODO: 供货关系管理
+ * TODO: 补货关系管理
  * @date 2016年11月15日
  * @author lijing
  */
@@ -27,7 +27,7 @@ public class SupplyRelationComponent extends AppActivityImpl {
 	@Override
 	public String getBizObjectType() {
 		// TODO Auto-generated method stub
-		return "bc_supply_relations";
+		return "";
 	}
 
 	//发布此业务活动关联的业务角色
@@ -55,8 +55,11 @@ public class SupplyRelationComponent extends AppActivityImpl {
 		// TODO Auto-generated method stub
 		List<OtoCloudEventHandlerRegistry> ret = new ArrayList<OtoCloudEventHandlerRegistry>();
 
-		SupplyWarehouseQueryHandler supplyWarehouseQueryHandler = new SupplyWarehouseQueryHandler(this);
-		ret.add(supplyWarehouseQueryHandler);
+		VMIWarehouseQueryHandler vmiWarehouseQueryHandler = new VMIWarehouseQueryHandler(this);
+		ret.add(vmiWarehouseQueryHandler);
+		
+		ReplenishmentRelationsQueryHandler replenishmentRelationsQueryHandler = new ReplenishmentRelationsQueryHandler(this);
+		ret.add(replenishmentRelationsQueryHandler);
 		
 		return ret;
 	}
