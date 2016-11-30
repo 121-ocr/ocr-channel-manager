@@ -1,7 +1,10 @@
 {
 	"main": "ocr.channel.App",
-	"options": {
+	"options": {		
 		"config": {
+			"vertx_options":{
+				"blockedThreadCheckInterval": 50000
+			},
 			"version_id": 6,
 			"service_name": "ocr-channel-manager",
 			"app_inst_scope": ["1~1000"],
@@ -13,7 +16,10 @@
 			"webserver_config": {
 				"webserver_port": 8080,
 				"eventbus_enabled": true,
-				"static_res_service": true
+				"static_res_service": true,
+				"delivery_options": {
+					"timeout": 60000
+				}
 			},
 			"api_register_server": {
 				//"webserver_name": "121webserver-N01"
