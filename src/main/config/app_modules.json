@@ -98,21 +98,21 @@
     		"id": 23,
         	"text":"采购入库",
         	"attributes":{   
-	            "url":"invcenter/purchasein/list.html" 
+	            "url":"invcenter/purchasein/pharseinv.html" 
 	        }
     	},
     	{   
     		"id": 24,
         	"text":"拣货出库",
         	"attributes":{   
-	            "url":"/demo/book/abc" 
+	             "url":"invcenter/stockout/stockout.html" 
 	        }
     	},
     	{   
     		"id": 25,
         	"text":"现存量查询",
         	"attributes":{   
-	            "url":"/demo/book/abc" 
+	            "url":"invcenter/onhand/onhand.html" 
 	        }
     	}
     ]   
