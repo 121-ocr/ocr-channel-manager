@@ -33,7 +33,7 @@ public class ReplenishmentRelationsQueryHandler extends ActionHandlerImpl<JsonOb
 	
     /**
      * 查询渠道仓库的补货仓库：
-     * 1、传入渠道仓库ID（to）、渠道仓库所属的企业租户ID(from)
+     * 1、传入渠道仓库ID、渠道仓库所属的企业租户ID
      * 2、在仓库补货关系(bc_replenishment_relations)中查询补货的来源仓库（本企业），针对于一个渠道仓库，可能有多个补货仓库
      */
 	@Override

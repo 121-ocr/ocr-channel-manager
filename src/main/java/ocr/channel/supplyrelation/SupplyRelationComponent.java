@@ -61,6 +61,9 @@ public class SupplyRelationComponent extends AppActivityImpl {
 		ReplenishmentRelationsQueryHandler replenishmentRelationsQueryHandler = new ReplenishmentRelationsQueryHandler(this);
 		ret.add(replenishmentRelationsQueryHandler);
 		
+		SupplyWarehouseStocksQueryHandler supplyWarehouseStocksQueryHandler = new SupplyWarehouseStocksQueryHandler(this);
+		ret.add(supplyWarehouseStocksQueryHandler);
+		
 		return ret;
 	}
 
