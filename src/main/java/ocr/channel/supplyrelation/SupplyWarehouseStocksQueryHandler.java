@@ -82,9 +82,9 @@ public class SupplyWarehouseStocksQueryHandler extends ActionHandlerImpl<JsonObj
 							invStocksQuery.put("warehousecode", whCode);
 							invStocksQuery.put("sku", sku);
 							
-							//取仓库档案							
+							//取仓库现存量						
 							String invSrvName = this.appActivity.getDependencies().getJsonObject("inventorycenter_service").getString("service_name","");
-							String getWarehouseAddress = from_account + "." + invSrvName + "." + "stockonhand_mgr.query";							
+							String getWarehouseAddress = from_account + "." + invSrvName + "." + "stockonhand-mgr.query";							
 							this.appActivity.getEventBus().send(getWarehouseAddress,
 								invStocksQuery, invRet->{
 									if(invRet.succeeded()){
@@ -95,7 +95,7 @@ public class SupplyWarehouseStocksQueryHandler extends ActionHandlerImpl<JsonObj
 									}
 									
 								});	
-						}						
+						}
 						CompositeFuture.join(futures).setHandler(ar -> {
 						  	JsonArray retArray =new JsonArray();
 						  	Double onHandNum = 0.00;
@@ -106,11 +106,15 @@ public class SupplyWarehouseStocksQueryHandler extends ActionHandlerImpl<JsonObj
 										JsonObject itemObject = comFutures.result(i);
 										JsonArray skuStocks = itemObject.getJsonArray("result");
 										if(skuStocks != null && skuStocks.size() > 0){
-											JsonObject skuStock = skuStocks.getJsonObject(0);
-											Double currentOnhand = skuStock.getDouble("onhandnum");
-											onHandNum += currentOnhand;
-											retArray.add(new JsonObject().put("warehouses", skuStock.getJsonObject("warehouses"))
-													.put("onhandnum", currentOnhand));
+											for(Object item: skuStocks){
+												JsonObject skuStock = (JsonObject)item;
+												Double currentOnhand = skuStock.getDouble("onhandnum");
+												onHandNum += currentOnhand;
+												retArray.add(new JsonObject().put("warehouses", skuStock.getJsonObject("warehouses"))
+														.put("invbatchcode", skuStock.getString("invbatchcode"))
+														.put("shelf_life", skuStock.getString("shelf_life"))
+														.put("onhandnum", currentOnhand));
+											}
 										}
 									}
 								}																			

@@ -2,9 +2,6 @@
 	"main": "ocr.channel.App",
 	"options": {		
 		"config": {
-			"vertx_options":{
-				"blockedThreadCheckInterval": 50000
-			},
 			"version_id": 6,
 			"service_name": "ocr-channel-manager",
 			"app_inst_scope": ["1~1000"],
