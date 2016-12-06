@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ocr.channel.organization.ChannelOrganizationComponent;
+import ocr.channel.pricepolicy.PricePolicyComponent;
 import ocr.channel.supplyrelation.SupplyRelationComponent;
 import otocloud.framework.app.engine.AppServiceImpl;
 import otocloud.framework.app.engine.WebServer;
@@ -41,6 +42,9 @@ public class ChannelsManagerService extends AppServiceImpl
 		
 		SupplyRelationComponent supplyRelationComponent = new SupplyRelationComponent();
 		retActivities.add(supplyRelationComponent);
+		
+		PricePolicyComponent pricePolicyComponent = new PricePolicyComponent();
+		retActivities.add(pricePolicyComponent);
 
 		return retActivities;
 	}

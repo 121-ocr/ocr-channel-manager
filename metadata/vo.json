@@ -80,3 +80,83 @@ bc_replenishment_relations
    "to_account": "4",
    "rule": {} 补货规则
 }
+
+五、渠道价格表
+bc_channel_prices
+{
+	"channel": { //渠道
+	    "code": "N0003",
+    	"name": "昌平分店",
+    	"account": "4"
+	},
+	"goods": { //商品
+		"account": "Kano", //货主
+    	"product_sku_code": "WINE001SP0001SP0002",
+    	"title": "科特勒2014 干红葡萄酒750ml"
+	},
+	"invbatchcode": "3", //批次号
+	"supply_price": {   //供货价
+		"tax_type": "VTA",  
+		"tax_rate": 0.17,	
+		"price_including_tax": {   //含税供货价
+			"currency": {		  
+				"currency_type": "CYN",
+				"money": 117.00
+			},
+			"original_currency":  { 
+				"currency_type": "USD",
+				"money": 17.55
+			}
+		},
+		"price": {   //无税供货价
+			"currency": {
+				"currency_type": "CYN",
+				"money": 100.00
+			},
+			"original_currency":  {
+				"currency_type": "USD",
+				"money": 15.00
+			}
+		}
+	},
+	"retail_price": {  //零售价
+		"tax_type": "Excise Duty", 
+		"tax_rate": 0.03,	
+		"price_including_tax": {  //含税零售价
+			"currency": {	
+				"currency_type": "CYN",
+				"money": 226.6
+			},
+			"original_currency":  { 
+				"currency_type": "USD",
+				"money": 41.2
+			}
+		},
+		"price": {    //无税零售价
+			"currency": {
+				"currency_type": "CYN",
+				"money": 220.00
+			},
+			"original_currency":  {
+				"currency_type": "USD",
+				"money": 40.00
+			}
+		}
+	},
+	"commission": {  //佣金
+		"computation_rule": {},  //佣金计算规则
+		"commission_value": {    //佣金
+			"currency": {		
+				"currency_type": "CYN",
+				"money": 20.00
+			},
+			"original_currency":  {
+				"currency_type": "USD",
+				"money": 5.00
+			}
+		}          	
+	}
+}
+
+
+

@@ -88,8 +88,66 @@ public class SupplyWarehouseStocksQueryHandler extends ActionHandlerImpl<JsonObj
 							this.appActivity.getEventBus().send(getWarehouseAddress,
 								invStocksQuery, invRet->{
 									if(invRet.succeeded()){
-										//List<JsonObject> retObjs = (List<JsonObject>)invRet.result().body();
-										repRelationFuture.complete((JsonObject)invRet.result().body());
+										JsonObject retObjs = (JsonObject)invRet.result().body();
+										if(retObjs.containsKey("result")){
+											JsonArray stockNumArray = retObjs.getJsonArray("result");	
+											if(stockNumArray == null || stockNumArray.size() <= 0){
+												repRelationFuture.complete(retObjs);												
+											}else{
+										
+												//构建取价格参数
+												JsonArray queryPriceCondItems = new JsonArray();
+												stockNumArray.forEach(item->{
+													JsonObject stockOnHandNumObj = (JsonObject)item;
+													queryPriceCondItems.add(new JsonObject().put("channel.account", to_account)
+															.put("goods.product_sku_code", stockOnHandNumObj.getJsonObject("goods").getString("product_sku_code"))
+															.put("invbatchcode", stockOnHandNumObj.getString("invbatchcode")));												
+													
+												});
+												
+												JsonObject queryPriceCondObject = new JsonObject();
+												queryPriceCondObject.put("$or", queryPriceCondItems);
+												
+												//批量取价格					
+												String priceSrvName = this.appActivity.getService().getRealServiceName();
+												String priceAddress = this.appActivity.getAppInstContext().getAccount() + "." + priceSrvName + "." + "pricepolicy-mgr.findall";							
+												this.appActivity.getEventBus().send(priceAddress,
+														queryPriceCondObject, priceSrvRet->{
+														if(priceSrvRet.succeeded()){
+															JsonObject priceRetObj = (JsonObject)priceSrvRet.result().body();
+															if(priceRetObj.containsKey("result")){
+																JsonArray priceRetArray = priceRetObj.getJsonArray("result");											
+																stockNumArray.forEach(item->{
+																	JsonObject stockOnHandNumObj = (JsonObject)item;
+																	priceRetArray.forEach(item2->{
+																		JsonObject priceItem = (JsonObject)item2;
+																		if(stockOnHandNumObj.getJsonObject("goods").getString("product_sku_code")
+																				.equals(priceItem.getJsonObject("goods").getString("product_sku_code"))
+																				&& stockOnHandNumObj.getString("invbatchcode")
+																				.equals(priceItem.getString("invbatchcode"))){
+																			stockOnHandNumObj.put("supply_price", priceItem.getJsonObject("supply_price"));
+																			stockOnHandNumObj.put("retail_price", priceItem.getJsonObject("retail_price"));
+																			stockOnHandNumObj.put("commission", priceItem.getJsonObject("commission"));
+																		}																	
+																	});															
+																	
+																	
+																});
+															}														
+															
+														}else{
+															Throwable err = priceSrvRet.cause();
+															String errMsg = err.getMessage();
+															appActivity.getLogger().error(errMsg, err);													
+	
+														}
+														
+														repRelationFuture.complete(retObjs);
+													});	
+											}
+										}else{				
+											repRelationFuture.complete(retObjs);
+										}
 									}else{										
 										repRelationFuture.fail(invRet.cause());
 									}
@@ -110,10 +168,18 @@ public class SupplyWarehouseStocksQueryHandler extends ActionHandlerImpl<JsonObj
 												JsonObject skuStock = (JsonObject)item;
 												Double currentOnhand = skuStock.getDouble("onhandnum");
 												onHandNum += currentOnhand;
-												retArray.add(new JsonObject().put("warehouses", skuStock.getJsonObject("warehouses"))
+												JsonObject retItemObject = new JsonObject().put("warehouses", skuStock.getJsonObject("warehouses"))
 														.put("invbatchcode", skuStock.getString("invbatchcode"))
 														.put("shelf_life", skuStock.getString("shelf_life"))
-														.put("onhandnum", currentOnhand));
+														.put("onhandnum", currentOnhand);
+												if(skuStock.containsKey("supply_price"))
+													retItemObject.put("supply_price", skuStock.getJsonObject("supply_price"));
+												if(skuStock.containsKey("retail_price"))
+													retItemObject.put("retail_price", skuStock.getJsonObject("retail_price"));
+												if(skuStock.containsKey("commission"))
+													retItemObject.put("commission", skuStock.getJsonObject("commission"));
+												
+												retArray.add(retItemObject);
 											}
 										}
 									}
