@@ -2,8 +2,10 @@
 message api：ocr-channel-manager.channel-org-mgr.findall
 rest api: ocr-channel-manager/channel-org-mgr/findall, http: POST
 input:
+
 分页查询参数
-{ fields: {},  //返回字段
+{ 
+   fields: {},  //返回字段
    paging: {
       sort_field: 排序字段，只支持单个字段,
       sort_direction: 1：升序，-1：降序,
@@ -13,9 +15,11 @@ input:
       total_page: 总页数，下次需要回传
    },
    query: {
-   	  channel_assistant: lj
-   }  //其他条件  
+   	  
+   }  //条件  
 }
+
+
 output: 
 分页查询返回
 {
