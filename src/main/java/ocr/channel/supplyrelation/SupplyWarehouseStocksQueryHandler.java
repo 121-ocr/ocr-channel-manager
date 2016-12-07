@@ -114,6 +114,7 @@ public class SupplyWarehouseStocksQueryHandler extends ActionHandlerImpl<JsonObj
 												this.appActivity.getEventBus().send(priceAddress,
 														queryPriceCondObject, priceSrvRet->{
 														if(priceSrvRet.succeeded()){
+															//将SKU价格和存量组合
 															JsonObject priceRetObj = (JsonObject)priceSrvRet.result().body();
 															if(priceRetObj.containsKey("result")){
 																JsonArray priceRetArray = priceRetObj.getJsonArray("result");											
