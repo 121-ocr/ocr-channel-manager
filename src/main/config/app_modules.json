@@ -151,7 +151,7 @@
     "children":[
        	{   
     		"id": 51,
-        	"text":"渠道补货工作台",
+        	"text":"补货工作台",
         	"attributes":{   
 	            "url":"sales-center/channel-replenishment/replenishment-workbench.html" 
 	        }
