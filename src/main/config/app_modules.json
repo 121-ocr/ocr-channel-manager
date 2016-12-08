@@ -149,20 +149,26 @@
     "id":5,   
     "text":"营销中心",   
     "children":[
-       	{   
-    		"id": 51,
-        	"text":"补货工作台",
-        	"attributes":{   
-	            "url":"sales-center/channel-replenishment/replenishment-workbench.html" 
-	        }
-    	},
-    	{   
-    		"id": 52,
-        	"text":"渠道补货单",
-        	"attributes":{   
-	            "url":"sales-center/channel-replenishment/replenishment.html" 
-	        }
-    	}
+	    {
+		    "id":51,   
+	    	"text":"渠道补货",   
+	    	"children":[
+		       	{   
+		    		"id": 511,
+		        	"text":"补货工作台",
+		        	"attributes":{   
+			            "url":"sales-center/channel-replenishment/replenishment-workbench.html" 
+			        }
+		    	},
+		    	{   
+		    		"id": 512,
+		        	"text":"渠道补货单",
+		        	"attributes":{   
+			            "url":"sales-center/channel-replenishment/replenishment.html" 
+			        }
+		    	}
+	    	]
+	    }
     ]   
 
 },
