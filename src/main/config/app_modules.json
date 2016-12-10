@@ -98,16 +98,44 @@
     		"id": 23,
         	"text":"采购入库",
         	"attributes":{   
+
 	            "url":"invcenter/pharseinv/pharseinv.html" 
 	        }
     	},
     	{   
-    		"id": 24,
-        	"text":"拣货出库",
-        	"attributes":{   
-	             "url":"invcenter/stockout/stockout.html" 
-	        }
-    	},
+		    "id":24,   
+		    "text":"拣货出库",   
+		    "children":[
+		    	{   
+		    		"id": 241,
+		        	"text":"待拣货",
+		        	"attributes":{   
+			             "url":"invcenter/stockout/stockout.html" 
+			        }
+		    	},
+		    	{   
+		    		"id": 242,
+		        	"text":"拣货中",
+		        	"attributes":{   
+			             "url":"invcenter/stockout/stockout-onpicking.html" 
+			        }
+		    	},
+		    	{   
+		    		"id": 243,
+		        	"text":"待出库",
+		        	"attributes":{   
+			             "url":"invcenter/stockout/stockout-pickouted.html" 
+			        }
+		    	},
+		    	{   
+		    		"id": 244,
+		        	"text":"已出库",
+		        	"attributes":{   
+			             "url":"invcenter/stockout/stockout-shippingouted.html" 
+			        }
+		    	}
+		    ]
+		},
     	{   
     		"id": 25,
         	"text":"现存量查询",
@@ -122,20 +150,26 @@
     "id":5,   
     "text":"营销中心",   
     "children":[
-       	{   
-    		"id": 51,
-        	"text":"渠道补货工作台",
-        	"attributes":{   
-	            "url":"sales-center/channel-replenishment/replenishment-workbench.html" 
-	        }
-    	},
-    	{   
-    		"id": 52,
-        	"text":"渠道补货单",
-        	"attributes":{   
-	            "url":"sales-center/channel-replenishment/replenishment.html" 
-	        }
-    	}
+	    {
+		    "id":51,   
+	    	"text":"渠道补货",   
+	    	"children":[
+		       	{   
+		    		"id": 511,
+		        	"text":"补货工作台",
+		        	"attributes":{   
+			            "url":"sales-center/channel-replenishment/replenishment-workbench.html" 
+			        }
+		    	},
+		    	{   
+		    		"id": 512,
+		        	"text":"渠道补货单",
+		        	"attributes":{   
+			            "url":"sales-center/channel-replenishment/replenishment.html" 
+			        }
+		    	}
+	    	]
+	    }
     ]   
 
 },
@@ -145,9 +179,9 @@
     "children":[
     	{   
     		"id": 61,
-        	"text":"补货调拨",
+        	"text":"补货入库",
         	"attributes":{   
-	            "url":"/demo/book/abc" 
+	            "url":"point-of-sale/allotinv/allotinv.html" 
 	        }
     	},
     	{   
@@ -161,7 +195,7 @@
     		"id": 63,
         	"text":"零售开单",
         	"attributes":{   
-	            "url":"/demo/book/abc" 
+	            "url":"point-of-sale/saleorder/saleorder.html" 
 	        }
     	}
     ]   
