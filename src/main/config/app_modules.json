@@ -98,7 +98,7 @@
     		"id": 23,
         	"text":"采购入库",
         	"attributes":{   
-	            "url":"invcenter/purchasein/pharseinv.html" 
+	            "url":"invcenter/pharseinv/pharseinv.html" 
 	        }
     	},
     	{   
