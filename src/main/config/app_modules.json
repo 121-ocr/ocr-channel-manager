@@ -121,16 +121,9 @@
 		    	},
 		    	{   
 		    		"id": 243,
-		        	"text":"待出库",
+		        	"text":"已完成",
 		        	"attributes":{   
 			             "url":"invcenter/stockout/stockout-pickouted.html" 
-			        }
-		    	},
-		    	{   
-		    		"id": 244,
-		        	"text":"已出库",
-		        	"attributes":{   
-			             "url":"invcenter/stockout/stockout-shippingouted.html" 
 			        }
 		    	}
 		    ]
@@ -162,6 +155,13 @@
 		    	},
 		    	{   
 		    		"id": 512,
+		        	"text":"发货通知",
+		        	"attributes":{   
+			            "url":"sales-center/channel-replenishment/channel-shipment.html" 
+			        }
+		    	},
+		    	{   
+		    		"id": 513,
 		        	"text":"渠道补货单",
 		        	"attributes":{   
 			            "url":"sales-center/channel-replenishment/replenishment.html" 
