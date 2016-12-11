@@ -20,10 +20,15 @@
 		
 		<dependency>
 			<groupId>otocloud</groupId>
-			<artifactId>ocr-common</artifactId>
+			<artifactId>otocloud-common</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-		
+
+		<dependency>
+			<groupId>otocloud</groupId>
+			<artifactId>otocloud-framework</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 
 	</dependencies>
 

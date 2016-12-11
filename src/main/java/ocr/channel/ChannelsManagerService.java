@@ -3,7 +3,6 @@ package ocr.channel;
 import java.util.ArrayList;
 import java.util.List;
 
-import ocr.channel.allowcatalog.AllowCatalogComponent;
 import ocr.channel.organization.ChannelOrganizationComponent;
 import ocr.channel.pricepolicy.PricePolicyComponent;
 import ocr.channel.supplyrelation.SupplyRelationComponent;
@@ -46,9 +45,6 @@ public class ChannelsManagerService extends AppServiceImpl
 		
 		PricePolicyComponent pricePolicyComponent = new PricePolicyComponent();
 		retActivities.add(pricePolicyComponent);
-		
-		AllowCatalogComponent allowCatalogComponent = new AllowCatalogComponent();
-		retActivities.add(allowCatalogComponent);
 
 		return retActivities;
 	}

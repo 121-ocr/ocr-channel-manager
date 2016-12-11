@@ -98,7 +98,8 @@
     		"id": 23,
         	"text":"采购入库",
         	"attributes":{   
-	            "url":"invcenter/purchasein/stockout.html" 
+
+	            "url":"invcenter/pharseinv/pharseinv.html" 
 	        }
     	},
     	{   

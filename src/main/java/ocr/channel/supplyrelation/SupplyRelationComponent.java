@@ -52,7 +52,7 @@ public class SupplyRelationComponent extends AppActivityImpl {
 	//业务活动组件中的业务功能
 	@Override
 	public List<OtoCloudEventHandlerRegistry> registerEventHandlers() {
-		
+		// TODO Auto-generated method stub
 		List<OtoCloudEventHandlerRegistry> ret = new ArrayList<OtoCloudEventHandlerRegistry>();
 
 		VMIWarehouseQueryHandler vmiWarehouseQueryHandler = new VMIWarehouseQueryHandler(this);
@@ -63,9 +63,6 @@ public class SupplyRelationComponent extends AppActivityImpl {
 		
 		SupplyWarehouseStocksQueryHandler supplyWarehouseStocksQueryHandler = new SupplyWarehouseStocksQueryHandler(this);
 		ret.add(supplyWarehouseStocksQueryHandler);
-		
-		ReplenishmentWarehousesQueryHandler replenishmentWarehousesQueryHandler = new ReplenishmentWarehousesQueryHandler(this);
-		ret.add(replenishmentWarehousesQueryHandler);
 		
 		return ret;
 	}
