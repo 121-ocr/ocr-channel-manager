@@ -1,4 +1,4 @@
-package ocr.channel.supplyrelation;
+package ocr.channel.allowcatalog;
 
 
 import java.util.ArrayList;
@@ -10,24 +10,22 @@ import otocloud.framework.core.OtoCloudEventDescriptor;
 import otocloud.framework.core.OtoCloudEventHandlerRegistry;
 
 /**
- * TODO: 补货关系管理
+ * TODO:允销目录管理
  * @date 2016年11月15日
  * @author lijing
  */
-public class SupplyRelationComponent extends AppActivityImpl {
+public class AllowCatalogComponent extends AppActivityImpl {
 
 	//业务活动组件名
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
-		return "supplyrelation-mgr";
+		return "allowcatalog-mgr";
 	}
 	
 	//业务活动组件要处理的核心业务对象
 	@Override
-	public String getBizObjectType() {
-		// TODO Auto-generated method stub
-		return "";
+	public String getBizObjectType() {		
+		return "bs_allow_catalog";
 	}
 
 	//发布此业务活动关联的业务角色
@@ -52,21 +50,11 @@ public class SupplyRelationComponent extends AppActivityImpl {
 	//业务活动组件中的业务功能
 	@Override
 	public List<OtoCloudEventHandlerRegistry> registerEventHandlers() {
-		// TODO Auto-generated method stub
+
 		List<OtoCloudEventHandlerRegistry> ret = new ArrayList<OtoCloudEventHandlerRegistry>();
 
-		VMIWarehouseQueryHandler vmiWarehouseQueryHandler = new VMIWarehouseQueryHandler(this);
-		ret.add(vmiWarehouseQueryHandler);
-		
-		ReplenishmentRelationsQueryHandler replenishmentRelationsQueryHandler = new ReplenishmentRelationsQueryHandler(this);
-		ret.add(replenishmentRelationsQueryHandler);
-		
-		SupplyWarehouseStocksQueryHandler supplyWarehouseStocksQueryHandler = new SupplyWarehouseStocksQueryHandler(this);
-		ret.add(supplyWarehouseStocksQueryHandler);
-		
-		ReplenishmentWarehousesQueryHandler replenishmentWarehousesQueryHandler = new ReplenishmentWarehousesQueryHandler(this);
-		ret.add(replenishmentWarehousesQueryHandler);
-
+		AllowCatalogQueryHandler allowCatalogQueryHandler = new AllowCatalogQueryHandler(this);
+		ret.add(allowCatalogQueryHandler);
 		
 		return ret;
 	}
