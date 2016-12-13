@@ -105,6 +105,7 @@ public class SupplyWarehouseStocksQueryHandler extends ActionHandlerImpl<JsonObj
 										//构建现存量查询参数
 										stockOnHandParams.put("query", new JsonObject().put("warehousecode", whCode)
 																						.put("sku", sku));	
+										
 										//设置分组
 										stockOnHandParams.put("group_keys", new JsonArray()
 																					.add("warehousecode")
@@ -135,7 +136,7 @@ public class SupplyWarehouseStocksQueryHandler extends ActionHandlerImpl<JsonObj
 														if(stockNumArray == null || stockNumArray.size() <= 0){
 															repRelationFuture.complete(stockNumArray);												
 														}else{													
-															if(existBatchPrice){
+															/*if(existBatchPrice){*/
 																//存在批次价格
 															    if(priceRetArray == null || priceRetArray.size() == 0){
 															    	repRelationFuture.complete(stockNumArray);	
@@ -147,21 +148,31 @@ public class SupplyWarehouseStocksQueryHandler extends ActionHandlerImpl<JsonObj
 																	_idFields.put("warehousename", whName);
 																	priceRetArray.forEach(item2->{
 																		JsonObject priceItem = (JsonObject)item2;
-																		if(_idFields.getString("sku")
-																				.equals(priceItem.getJsonObject("goods").getString("product_sku_code"))
-																				&& _idFields.getString("invbatchcode")
-																						.equals(priceItem.getString("invbatchcode"))){
-																			stockOnHandNumObj.put("supply_price", priceItem.getJsonObject("supply_price"));
-																			stockOnHandNumObj.put("retail_price", priceItem.getJsonObject("retail_price"));
-																			stockOnHandNumObj.put("commission", priceItem.getJsonObject("commission"));
-																		}																	
+																		if(existBatchPrice){
+																			if(_idFields.getString("sku")
+																					.equals(priceItem.getJsonObject("goods").getString("product_sku_code"))
+																					&& _idFields.getString("invbatchcode")
+																							.equals(priceItem.getString("invbatchcode"))){
+																				stockOnHandNumObj.put("supply_price", priceItem.getJsonObject("supply_price"));
+																				stockOnHandNumObj.put("retail_price", priceItem.getJsonObject("retail_price"));
+																				stockOnHandNumObj.put("commission", priceItem.getJsonObject("commission"));
+																			}	
+																		}else{
+																			
+																			if(_idFields.getString("sku")
+																					.equals(priceItem.getJsonObject("goods").getString("product_sku_code"))){
+																				stockOnHandNumObj.put("supply_price", priceItem.getJsonObject("supply_price"));
+																				stockOnHandNumObj.put("retail_price", priceItem.getJsonObject("retail_price"));
+																				stockOnHandNumObj.put("commission", priceItem.getJsonObject("commission"));
+																			}
+																		}
 																	});
 																	
 																});
 																
 																repRelationFuture.complete(stockNumArray);
 																
-															}else{
+															/*}else{
 																//不存在批次价格															
 																
 															    if(priceRetArray == null || priceRetArray.size() == 0){
@@ -186,7 +197,7 @@ public class SupplyWarehouseStocksQueryHandler extends ActionHandlerImpl<JsonObj
 																
 																repRelationFuture.complete(stockNumArray);																
 																
-															}															
+															}													*/		
 
 														}
 													/*}else{				
