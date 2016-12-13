@@ -56,6 +56,12 @@ public class PricePolicyComponent extends AppActivityImpl {
 		PriceQueryHandler priceQueryHandler = new PriceQueryHandler(this);
 		ret.add(priceQueryHandler);
 		
+		PriceQueryByPaginationHandler priceQueryByPaginationHandler = new PriceQueryByPaginationHandler(this);
+		ret.add(priceQueryByPaginationHandler);
+		
+		ExistBatchPricePolicyHandler existBatchPricePolicyHandler = new ExistBatchPricePolicyHandler(this);
+		ret.add(existBatchPricePolicyHandler);
+		
 		return ret;
 	}
 
