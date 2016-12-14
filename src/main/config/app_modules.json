@@ -155,15 +155,28 @@
 			        }
 		    	},
 		    	{   
-		    		"id": 512,
-		        	"text":"发货通知",
-		        	"attributes":{   
-			            "url":"sales-center/channel-replenishment/channel-shipment.html" 
-			        }
-		    	},
+				    "id":512,   
+				    "text":"发货通知",   
+				    "children":[
+				    	{   
+				    		"id": 5121,
+				        	"text":"发货通知",
+				        	"attributes":{   
+					            "url":"sales-center/channel-replenishment/channel-shipment.html" 
+					        }
+				    	},
+				    	{   
+				    		"id": 5122,
+				        	"text":"打印发货单",
+				        	"attributes":{   
+					             "url":"sales-center/shipment/shipment.html" 
+					        }
+				    	}
+				    ]
+				},
 		    	{   
 		    		"id": 513,
-		        	"text":"渠道补货单",
+		        	"text":"已完成补货单",
 		        	"attributes":{   
 			            "url":"sales-center/channel-replenishment/replenishment.html" 
 			        }
