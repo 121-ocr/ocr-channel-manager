@@ -119,7 +119,12 @@ public class SupplyWarehouseStocksQueryHandler extends ActionHandlerImpl<JsonObj
 																				.add("OUT")
 																				.add("RES"));
 										//设置排序
-										stockOnHandParams.put("sort", new JsonObject().put("onhandnum", 1));		
+										//stockOnHandParams.put("sort", new JsonObject().put("onhandnum", 1));	
+										
+										stockOnHandParams.put("sort",  new JsonObject()
+																				.put("shelf_life", 1)
+																				.put("invbatchcode", 1)
+																				.put("onhandnum", 1));
 										
 										
 
