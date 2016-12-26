@@ -62,6 +62,9 @@ public class PricePolicyComponent extends AppActivityImpl {
 		ExistBatchPricePolicyHandler existBatchPricePolicyHandler = new ExistBatchPricePolicyHandler(this);
 		ret.add(existBatchPricePolicyHandler);
 		
+		PriceBatchCreationHandler priceBatchCreationHandler = new PriceBatchCreationHandler(this);
+		ret.add(priceBatchCreationHandler);
+		
 		return ret;
 	}
 

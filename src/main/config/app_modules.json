@@ -183,7 +183,7 @@
 				},
 		    	{   
 		    		"id": 513,
-		        	"text":"已执行补货单",
+		        	"text":"发货完成补货单",
 		        	"attributes":{   
 			            "url":"sales-center/channel-replenishment/replenishment.html" 
 			        }
@@ -203,16 +203,23 @@
 	    	"children":[
 		    	{
 		    		"id": 611,
-		        	"text":"补货入库",
+		        	"text":"入库作业",
 		        	"attributes":{   
 			            "url":"point-of-sale/allotinv/allotinv.html" 
 			        }
 	        	},
-	        	{   
+		    	{   
 		    		"id": 612,
-		        	"text":"补货查询",
+		        	"text":"入库记录",
 		        	"attributes":{   
 			            "url":"point-of-sale/allotinv/allotinv-query.html" 
+			        }
+		    	},
+		    	{   
+		    		"id": 612,
+		        	"text":"补货跟踪",
+		        	"attributes":{   
+			            "url":"point-of-sale/allotinv/allotinv-tracking.html" 
 			        }
 		    	}
 	    	]

@@ -142,17 +142,25 @@ public class SupplyWarehouseStocksQueryHandler extends ActionHandlerImpl<JsonObj
 															repRelationFuture.complete(stockNumArray);												
 														}else{													
 															/*if(existBatchPrice){*/
-																//存在批次价格
+																
 															    if(priceRetArray == null || priceRetArray.size() == 0){
 															    	repRelationFuture.complete(stockNumArray);	
 															    	return;
 															    }
+															    
+															    
+																List<Future> priceFutures = new ArrayList<>();
+															    
 																stockNumArray.forEach(item->{
 																	JsonObject stockOnHandNumObj = (JsonObject)item;
 																	JsonObject _idFields = stockOnHandNumObj.getJsonObject("_id");
 																	_idFields.put("warehousename", whName);
-																	priceRetArray.forEach(item2->{
+																	
+																	boolean priceMatched = false;
+																	
+																	for(Object item2: priceRetArray){
 																		JsonObject priceItem = (JsonObject)item2;
+																		//存在批次价格
 																		if(existBatchPrice){
 																			if(_idFields.getString("sku")
 																					.equals(priceItem.getJsonObject("goods").getString("product_sku_code"))
@@ -161,21 +169,59 @@ public class SupplyWarehouseStocksQueryHandler extends ActionHandlerImpl<JsonObj
 																				stockOnHandNumObj.put("supply_price", priceItem.getJsonObject("supply_price"));
 																				stockOnHandNumObj.put("retail_price", priceItem.getJsonObject("retail_price"));
 																				stockOnHandNumObj.put("commission", priceItem.getJsonObject("commission"));
+																				priceMatched = true;
+																				break;
 																			}	
 																		}else{
-																			
+																			//不存在批次价格
 																			if(_idFields.getString("sku")
 																					.equals(priceItem.getJsonObject("goods").getString("product_sku_code"))){
 																				stockOnHandNumObj.put("supply_price", priceItem.getJsonObject("supply_price"));
 																				stockOnHandNumObj.put("retail_price", priceItem.getJsonObject("retail_price"));
 																				stockOnHandNumObj.put("commission", priceItem.getJsonObject("commission"));
+																				priceMatched = true;
+																				break;
 																			}
-																		}
-																	});
+																		}						
+																		
+																	}
+																	
+																	Future<Void> priceFuture = Future.future();
+																	priceFutures.add(priceFuture);	
+																	
+																	if(!priceMatched){						
+																		
+																		JsonObject priceQuery = new JsonObject().put("goods.product_sku_code", sku)
+																												.put("invbatchcode", _idFields.getString("invbatchcode"))
+																												.put("channel", new JsonObject().put("$exists", false));
+
+																		
+																		String priceAddress = this.appActivity.getAppInstContext().getAccount() + "." + existBatchPriceSrvName + "." + "pricepolicy-mgr.findall";							
+																		this.appActivity.getEventBus().send(priceAddress,
+																				priceQuery, priceSrvRet->{
+																			if(priceSrvRet.succeeded()){															
+																				JsonObject priceRets = (JsonObject)priceSrvRet.result().body();
+																				JsonObject priceRet = priceRets.getJsonArray("result").getJsonObject(0);
+																				stockOnHandNumObj.put("supply_price", priceRet.getJsonObject("supply_price"));
+																				stockOnHandNumObj.put("retail_price", priceRet.getJsonObject("retail_price"));
+																				stockOnHandNumObj.put("commission", priceRet.getJsonObject("commission"));
+																				
+																				priceFuture.complete();
+																			}else{																				
+																				priceFuture.fail(priceSrvRet.cause());
+																			}
+																			
+																		});
+																	}else{
+																		priceFuture.complete();
+																	}
+
 																	
 																});
 																
-																repRelationFuture.complete(stockNumArray);
+																CompositeFuture.join(priceFutures).setHandler(ar -> {																
+																	repRelationFuture.complete(stockNumArray);																
+																});
 																
 															/*}else{
 																//不存在批次价格															

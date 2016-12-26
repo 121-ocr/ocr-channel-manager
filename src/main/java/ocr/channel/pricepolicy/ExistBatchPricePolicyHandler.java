@@ -4,7 +4,6 @@ import java.util.List;
 
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.json.JsonObject;
-import io.vertx.ext.mongo.FindOptions;
 import otocloud.common.ActionURI;
 import otocloud.framework.app.function.ActionDescriptor;
 import otocloud.framework.app.function.ActionHandlerImpl;
@@ -34,7 +33,11 @@ public class ExistBatchPricePolicyHandler extends ActionHandlerImpl<JsonObject> 
 	}
 
     /**
-     * 查询渠道价格表
+     * 查询SKU渠道价格表
+     * {
+     * 		"channel.account": to_account,
+     * 		"goods.product_sku_code": sku
+     * }
     */
 	@Override
 	public void handle(OtoCloudBusMessage<JsonObject> msg) {
@@ -67,10 +70,33 @@ public class ExistBatchPricePolicyHandler extends ActionHandlerImpl<JsonObject> 
 							msg.reply(new JsonObject().put("exist_batch_price", false)
 									.put("results", results));
 							return;
-						}						
-						msg.reply(new JsonObject().put("exist_batch_price", false)
-								.put("results", results));
-						return;
+						}else{
+							//取不区分渠道的统一供货价格
+							query.remove("channel.account");
+							appActivity.getAppDatasource().getMongoClient().find(appActivity.getDBTableName(appActivity.getBizObjectType()), 
+									query, newResult -> {
+										if (newResult.succeeded()) {
+											List<JsonObject> newResults = newResult.result();
+											if(newResults != null && newResults.size() > 0){
+												msg.reply(new JsonObject().put("exist_batch_price", false)
+														.put("results", newResults));
+												
+												
+											}else{
+												msg.fail(100, "无价格数据");
+											}
+											
+										}else{
+											Throwable errThrowable = newResult.cause();
+											String errMsgString = errThrowable.getMessage();
+											appActivity.getLogger().error(errMsgString, errThrowable);
+											msg.fail(100, errMsgString);
+										}
+									});
+							
+							
+						}
+
 					} else {
 						Throwable errThrowable = result.cause();
 						String errMsgString = errThrowable.getMessage();
