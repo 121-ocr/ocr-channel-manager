@@ -64,8 +64,8 @@ public class ChannelOrganizationComponent extends AppActivityImpl {
 		ChannelTreeQueryHandler channelTreeQueryHandler = new ChannelTreeQueryHandler(this);
 		ret.add(channelTreeQueryHandler);
 		
-/*		ChannelTypeQueryHandler channelTypeQueryHandler = new ChannelTypeQueryHandler(this);
-		ret.add(channelTypeQueryHandler);*/
+		ChannelRegionQueryHandler channelRegionQueryHandler = new ChannelRegionQueryHandler(this);
+		ret.add(channelRegionQueryHandler);	
 		
 		return ret;
 	}
