@@ -78,9 +78,23 @@ public class ExistBatchPricePolicyHandler extends ActionHandlerImpl<JsonObject> 
 										if (newResult.succeeded()) {
 											List<JsonObject> newResults = newResult.result();
 											if(newResults != null && newResults.size() > 0){
+												/*msg.reply(new JsonObject().put("exist_batch_price", false)
+														.put("results", newResults));*/
+												
+												for(Object item : newResults){
+													JsonObject itemObj = (JsonObject)item;
+													if(itemObj.containsKey("invbatchcode")){
+														String invbatchcode = itemObj.getString("invbatchcode");
+														if(invbatchcode != null && !invbatchcode.isEmpty()){
+															msg.reply(new JsonObject().put("exist_batch_price", true)
+																		.put("results", newResults));
+															return;
+														}
+													}
+												}
 												msg.reply(new JsonObject().put("exist_batch_price", false)
 														.put("results", newResults));
-												
+												return;												
 												
 											}else{
 												msg.fail(100, "无价格数据");
