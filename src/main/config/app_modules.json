@@ -1,5 +1,33 @@
 [
 {   
+    "id":0,   
+    "text":"个人空间",   
+    "children":[
+    	{   
+    		"id": 1,
+        	"text":"用户管理",
+        	"attributes":{   
+	            "url":"/demo/book/abc" 
+	        }
+    	},
+    	{   
+    		"id": 2,
+        	"text":"角色管理",
+        	"attributes":{   
+	            "url":"/demo/book/abc" 
+	        }
+    	},
+    	{   
+    		"id": 3,
+        	"text":"权限分配",
+        	"attributes":{   
+	            "url":"/demo/book/abc" 
+	        }
+    	}
+    ]   
+
+},
+{   
     "id":1,   
     "text":"商品中心",   
     "children":[
@@ -82,9 +110,9 @@
     "children":[
     	{   
     		"id": 21,
-        	"text":"库存组织规划",
-        	"attributes":{   
-	            "url":"/demo/book/abc" 
+        	"text":"仓库档案",
+        	"attributes":{
+	            "url":"invcenter/warehouse/warehouses.html" 
 	        }
     	},
     	{   
