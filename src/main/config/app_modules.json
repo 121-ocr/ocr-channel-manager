@@ -117,16 +117,29 @@
     	},
     	{   
     		"id": 22,
-        	"text":"仓储设施管理",
+        	"text":"仓库货区档案",
         	"attributes":{   
-	            "url":"/demo/book/abc" 
+	            "url":"invcenter/invarea/invarea.html" 
+	        }
+    	},
+    	{   
+    		"id": 221,
+        	"text":"货架货位档案",
+        	"attributes":{   
+	            "url":"invcenter/invfacility/invfacility.html" 
+	        }
+    	},
+    	{   
+    		"id": 222,
+        	"text":"货位商品关系档案",
+        	"attributes":{   
+	            "url":"invcenter/locationrelation/locationrelation.html" 
 	        }
     	},
     	{   
     		"id": 23,
         	"text":"采购入库",
         	"attributes":{   
-
 	            "url":"invcenter/pharseinv/pharseinv.html" 
 	        }
     	},
