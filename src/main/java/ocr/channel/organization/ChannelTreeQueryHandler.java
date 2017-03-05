@@ -1,9 +1,15 @@
 package ocr.channel.organization;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.json.JsonArray;
+import io.vertx.core.json.JsonObject;
+import ocr.common.handler.SampleSingleDocQueryHandler;
 import otocloud.common.ActionURI;
 import otocloud.common.OtoCloudDirectoryHelper;
+import otocloud.framework.app.common.PagingOptions;
 import otocloud.framework.app.function.ActionDescriptor;
 import otocloud.framework.app.function.ActionHandlerImpl;
 import otocloud.framework.app.function.AppActivityImpl;
@@ -15,7 +21,7 @@ import otocloud.framework.core.OtoCloudBusMessage;
  * @date 2016年11月15日
  * @author lijing
  */
-public class ChannelTreeQueryHandler extends ActionHandlerImpl<JsonArray> {
+public class ChannelTreeQueryHandler extends SampleSingleDocQueryHandler {
 	
 	public static final String ADDRESS = "findtree";
 
@@ -33,25 +39,68 @@ public class ChannelTreeQueryHandler extends ActionHandlerImpl<JsonArray> {
 
 	//处理器
 	@Override
-	public void handle(OtoCloudBusMessage<JsonArray> msg) {
+	public void handle(OtoCloudBusMessage<JsonObject> msg) {
 		
-		String menusFilePath = OtoCloudDirectoryHelper.getConfigDirectory() + "channel-tree.json";		
 		
-		this.getAppActivity().getVertx().fileSystem().readFile(menusFilePath, result -> {
-    	    if (result.succeeded()) {
-    	    	String fileContent = result.result().toString(); 
-    	        
-    	    	JsonArray srvCfg = new JsonArray(fileContent);
-    	        msg.reply(srvCfg);     	        
-    	        
-    	    } else {
-				Throwable errThrowable = result.cause();
-				String errMsgString = errThrowable.getMessage();
-				appActivity.getLogger().error(errMsgString, errThrowable);
-				msg.fail(100, errMsgString);		
-   
-    	    }	
-		});
+		JsonObject queryObj = new JsonObject();
+		appActivity.getAppDatasource().getMongoClient().find(appActivity.getDBTableName(appActivity.getBizObjectType()),
+				queryObj, result -> {
+					if (result.succeeded()) {
+						List<JsonObject> parent = new ArrayList<>();
+						if(result.result().size() > 0){
+							List<JsonObject> list = result.result();
+							List<JsonObject> treeList = new ArrayList<>();
+							for(JsonObject json:list){
+								JsonObject tmp = new JsonObject();
+								tmp.put("id", json.getString("code"));
+								tmp.put("text", json.getString("name"));
+								tmp.put("attributes", json);
+								treeList.add(tmp);
+							}
+							
+							List<JsonObject> children = new ArrayList<>();
+							for(JsonObject json:treeList){
+								if(json.getJsonObject("attributes").getJsonObject("parentid").isEmpty()){
+									parent.add(json);
+								}else{
+									children.add(json);
+								}
+							}
+							if(parent.size() > 0){
+								for(JsonObject par:parent){
+									
+//									par.put("state", "closed");
+									String parentId = par.getJsonObject("attributes").getString("_id");
+									for(JsonObject child:children){
+										String childParentId = child.getJsonObject("attributes").getJsonObject("parentid").getString("_id");
+										if(parentId.equals(childParentId)){
+											if(par.containsKey("children")){
+												par.put("state", "closed");
+												par.getJsonArray("children").add(child);
+											}else{
+												List<JsonObject> t = new ArrayList<>();
+												t.add(child);
+												par.put("children", new JsonArray(t));
+												par.put("state", "closed");
+											}
+											
+											
+										}
+									}
+									treeList.add(par);
+								}
+							}
+							
+						}
+						msg.reply(new JsonArray(parent));
+					} else {
+						Throwable errThrowable = result.cause();
+						String errMsgString = errThrowable.getMessage();
+						appActivity.getLogger().error(errMsgString, errThrowable);
+						msg.fail(100, errMsgString);
+					}
+				});
+
 
 
 	}

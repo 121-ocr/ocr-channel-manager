@@ -67,6 +67,12 @@ public class ChannelOrganizationComponent extends AppActivityImpl {
 		ChannelRegionQueryHandler channelRegionQueryHandler = new ChannelRegionQueryHandler(this);
 		ret.add(channelRegionQueryHandler);	
 		
+		ChannelCreateHandler channelCreateHandler = new ChannelCreateHandler(this);
+		ret.add(channelCreateHandler);
+		
+		ChannelRemoveHandler channelRemoveHandler = new ChannelRemoveHandler(this);
+		ret.add(channelRemoveHandler);
+		
 		return ret;
 	}
 
