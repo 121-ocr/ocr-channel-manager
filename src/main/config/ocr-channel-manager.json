@@ -2,6 +2,7 @@
 	"main": "ocr.channel.App",
 	"options": {		
 		"config": {
+			"app_id": 6,
 			"version_id": 6,
 			"service_name": "ocr-channel-manager",
 			"app_inst_scope": ["1~1000"],

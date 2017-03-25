@@ -55,9 +55,7 @@ public class ChannelOrganizationComponent extends AppActivityImpl {
 		// TODO Auto-generated method stub
 		List<OtoCloudEventHandlerRegistry> ret = new ArrayList<OtoCloudEventHandlerRegistry>();
 		
-		AppModulesQueryHandler appModulesQueryHandler = new AppModulesQueryHandler(this);
-		ret.add(appModulesQueryHandler);
-		
+	
 		ChannelQueryHandler channelQueryHandler = new ChannelQueryHandler(this);
 		ret.add(channelQueryHandler);
 

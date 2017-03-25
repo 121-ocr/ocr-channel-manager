@@ -36,6 +36,9 @@ public class App extends AppServiceEngineImpl
 	
     public static void main( String[] args )
     {
+    	
+    	System.setProperty("javax.xml.parsers.DocumentBuilderFactory", "com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl");
+
     	App app = new App();
 
     	AppServiceEngineImpl.internalMain("log4j2.xml",
