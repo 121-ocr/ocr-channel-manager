@@ -1,15 +1,16 @@
 package ocr.channel.pricepolicy;
 
-import java.util.List;
-
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.json.JsonObject;
+
+import java.util.List;
+
 import otocloud.common.ActionURI;
 import otocloud.framework.app.function.ActionDescriptor;
 import otocloud.framework.app.function.ActionHandlerImpl;
 import otocloud.framework.app.function.AppActivityImpl;
+import otocloud.framework.core.CommandMessage;
 import otocloud.framework.core.HandlerDescriptor;
-import otocloud.framework.core.OtoCloudBusMessage;
 
 /**
  * TODO: 是否存在批次价格
@@ -40,9 +41,9 @@ public class ExistBatchPricePolicyHandler extends ActionHandlerImpl<JsonObject> 
      * }
     */
 	@Override
-	public void handle(OtoCloudBusMessage<JsonObject> msg) {
+	public void handle(CommandMessage<JsonObject> msg) {
 		
-		JsonObject query = msg.body();
+		JsonObject query = msg.getContent();
 		
 /*		JsonObject query = new JsonObject().put("channel.account", targetAccount)
 				.put("goods.product_sku_code", sku);*/

@@ -1,20 +1,18 @@
 package ocr.channel.organization;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import ocr.common.handler.SampleSingleDocQueryHandler;
 import otocloud.common.ActionURI;
-import otocloud.common.OtoCloudDirectoryHelper;
-import otocloud.framework.app.common.PagingOptions;
 import otocloud.framework.app.function.ActionDescriptor;
-import otocloud.framework.app.function.ActionHandlerImpl;
 import otocloud.framework.app.function.AppActivityImpl;
+import otocloud.framework.core.CommandMessage;
 import otocloud.framework.core.HandlerDescriptor;
-import otocloud.framework.core.OtoCloudBusMessage;
 
 /**
  * TODO: 渠道树查询
@@ -39,7 +37,7 @@ public class ChannelTreeQueryHandler extends SampleSingleDocQueryHandler {
 
 	//处理器
 	@Override
-	public void handle(OtoCloudBusMessage<JsonObject> msg) {
+	public void handle(CommandMessage<JsonObject> msg) {
 		
 		
 		JsonObject queryObj = new JsonObject();

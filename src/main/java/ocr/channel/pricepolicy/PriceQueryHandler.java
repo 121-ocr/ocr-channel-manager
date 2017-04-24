@@ -6,8 +6,8 @@ import otocloud.common.ActionURI;
 import otocloud.framework.app.function.ActionDescriptor;
 import otocloud.framework.app.function.ActionHandlerImpl;
 import otocloud.framework.app.function.AppActivityImpl;
+import otocloud.framework.core.CommandMessage;
 import otocloud.framework.core.HandlerDescriptor;
-import otocloud.framework.core.OtoCloudBusMessage;
 
 /**
  * TODO: 渠道价格查询
@@ -34,9 +34,9 @@ public class PriceQueryHandler extends ActionHandlerImpl<JsonObject> {
      * 查询渠道价格表
     */
 	@Override
-	public void handle(OtoCloudBusMessage<JsonObject> msg) {
+	public void handle(CommandMessage<JsonObject> msg) {
 		
-		JsonObject queryJsonObject = msg.body();		
+		JsonObject queryJsonObject = msg.getContent();		
 
 		appActivity.getAppDatasource().getMongoClient().find(
 				appActivity.getDBTableName(appActivity.getBizObjectType()), 

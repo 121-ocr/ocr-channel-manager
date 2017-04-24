@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import otocloud.framework.app.function.AppActivityImpl;
-import otocloud.framework.app.function.BizRoleDescriptor;
 import otocloud.framework.core.OtoCloudEventDescriptor;
 import otocloud.framework.core.OtoCloudEventHandlerRegistry;
 
@@ -26,17 +25,6 @@ public class AllowCatalogComponent extends AppActivityImpl {
 	@Override
 	public String getBizObjectType() {		
 		return "bs_allow_catalog";
-	}
-
-	//发布此业务活动关联的业务角色
-	@Override
-	public List<BizRoleDescriptor> exposeBizRolesDesc() {
-		// TODO Auto-generated method stub
-		BizRoleDescriptor bizRole = new BizRoleDescriptor("2", "核心企业");
-		
-		List<BizRoleDescriptor> ret = new ArrayList<BizRoleDescriptor>();
-		ret.add(bizRole);
-		return ret;
 	}
 
 	//发布此业务活动对外暴露的业务事件

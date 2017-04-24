@@ -6,8 +6,8 @@ import otocloud.common.ActionURI;
 import otocloud.framework.app.function.ActionDescriptor;
 import otocloud.framework.app.function.ActionHandlerImpl;
 import otocloud.framework.app.function.AppActivityImpl;
+import otocloud.framework.core.CommandMessage;
 import otocloud.framework.core.HandlerDescriptor;
-import otocloud.framework.core.OtoCloudBusMessage;
 
 /**
  * 批量价格创建
@@ -32,8 +32,8 @@ public class PriceBatchCreationHandler extends ActionHandlerImpl<JsonArray> {
 
 	// 处理器
 	@Override
-	public void handle(OtoCloudBusMessage<JsonArray> msg) {
-		JsonArray bodys = msg.body();
+	public void handle(CommandMessage<JsonArray> msg) {
+		JsonArray bodys = msg.getContent();
 
 		// 现存量维度=商品SKU+商品租户id+批次号+货位编码+仓库编码+存量+冗余字段 {主键+租户id+货位集合+仓库集合+商品集合}
 		//so.put(StockOnHandConstant.account, this.appActivity.getAppInstContext().getAccount());

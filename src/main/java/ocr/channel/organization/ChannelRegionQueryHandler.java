@@ -7,8 +7,8 @@ import otocloud.common.ActionURI;
 import otocloud.framework.app.function.ActionDescriptor;
 import otocloud.framework.app.function.ActionHandlerImpl;
 import otocloud.framework.app.function.AppActivityImpl;
+import otocloud.framework.core.CommandMessage;
 import otocloud.framework.core.HandlerDescriptor;
-import otocloud.framework.core.OtoCloudBusMessage;
 
 /**
  * TODO: 渠道区域查询
@@ -53,7 +53,7 @@ public class ChannelRegionQueryHandler extends ActionHandlerImpl<JsonObject> {
 	 * @param next
 	 */
 	@Override
-	public void handle(OtoCloudBusMessage<JsonObject> msg) {	
+	public void handle(CommandMessage<JsonObject> msg) {	
 		
 	
 		JsonObject groupComputeFields = new JsonObject()

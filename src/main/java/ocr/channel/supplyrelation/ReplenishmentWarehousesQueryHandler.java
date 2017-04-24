@@ -1,16 +1,17 @@
 package ocr.channel.supplyrelation;
 
-import java.util.List;
-
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
+
+import java.util.List;
+
 import otocloud.common.ActionURI;
 import otocloud.framework.app.function.ActionDescriptor;
 import otocloud.framework.app.function.ActionHandlerImpl;
 import otocloud.framework.app.function.AppActivityImpl;
+import otocloud.framework.core.CommandMessage;
 import otocloud.framework.core.HandlerDescriptor;
-import otocloud.framework.core.OtoCloudBusMessage;
 
 /**
  * TODO: 补货仓库查询
@@ -40,9 +41,9 @@ public class ReplenishmentWarehousesQueryHandler extends ActionHandlerImpl<JsonO
      * 2、在仓库补货关系(bc_replenishment_relations)中查询补货的来源仓库（本企业），针对于一个渠道仓库，可能有多个补货仓库
      */
 	@Override
-	public void handle(OtoCloudBusMessage<JsonObject> msg) {
+	public void handle(CommandMessage<JsonObject> msg) {
 		
-		JsonObject body = msg.body();
+		JsonObject body = msg.getContent();
 		
 		String to_warehouse_code = body.getString("to_warehouse_code");
 		String to_account = body.getString("to_account");

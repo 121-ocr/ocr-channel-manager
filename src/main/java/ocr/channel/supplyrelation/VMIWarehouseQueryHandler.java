@@ -9,6 +9,7 @@ import otocloud.common.ActionURI;
 import otocloud.framework.app.function.ActionDescriptor;
 import otocloud.framework.app.function.ActionHandlerImpl;
 import otocloud.framework.app.function.AppActivityImpl;
+import otocloud.framework.core.CommandMessage;
 import otocloud.framework.core.HandlerDescriptor;
 import otocloud.framework.core.OtoCloudBusMessage;
 
@@ -40,9 +41,9 @@ public class VMIWarehouseQueryHandler extends ActionHandlerImpl<JsonObject> {
      * 2、在VMI关系表(bc_vmi_relations)中查询货主是本企业的渠道仓库
      */
 	@Override
-	public void handle(OtoCloudBusMessage<JsonObject> msg) {
+	public void handle(CommandMessage<JsonObject> msg) {
 		
-		JsonObject body = msg.body();
+		JsonObject body = msg.getContent();
 		
 		String goodsOwner = this.appActivity.getAppInstContext().getAccount();		
 		String warehouseAccount = body.getString("warehouse_account");

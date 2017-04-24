@@ -7,8 +7,8 @@ import otocloud.framework.app.common.PagingOptions;
 import otocloud.framework.app.function.ActionDescriptor;
 import otocloud.framework.app.function.ActionHandlerImpl;
 import otocloud.framework.app.function.AppActivityImpl;
+import otocloud.framework.core.CommandMessage;
 import otocloud.framework.core.HandlerDescriptor;
-import otocloud.framework.core.OtoCloudBusMessage;
 
 /**
  * TODO: 渠道价格查询
@@ -36,11 +36,11 @@ public class PriceQueryByPaginationHandler extends ActionHandlerImpl<JsonObject>
      * 1、分页条件中传入渠道作为条件：   query: { channel.code: N0003 } 
      */
 	@Override
-	public void handle(OtoCloudBusMessage<JsonObject> msg) {
+	public void handle(CommandMessage<JsonObject> msg) {
 		
 		JsonObject queryParams = msg.body();
 	    PagingOptions pagingObj = PagingOptions.buildPagingOptions(queryParams);        
-	    this.queryBizDataList(appActivity.getBizObjectType(), pagingObj, null, findRet -> {
+	    this.queryBizDataList(null, appActivity.getBizObjectType(), pagingObj, null, findRet -> {
 	        if (findRet.succeeded()) {
 	            msg.reply(findRet.result());
 	        } else {
