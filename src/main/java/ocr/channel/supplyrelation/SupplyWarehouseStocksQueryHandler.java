@@ -94,7 +94,7 @@ public class SupplyWarehouseStocksQueryHandler extends ActionHandlerImpl<JsonObj
 								
 								//取仓库档案							
 								String invSrvName = this.appActivity.getDependencies().getJsonObject("inventorycenter_service").getString("service_name","");
-								String getWarehouseAddress = from_account + "." + invSrvName + "." + "invorg-mgr.query_name";							
+								String getWarehouseAddress = from_account + "." + invSrvName + "." + "warehouse-mgr.query_name";							
 								this.appActivity.getEventBus().send(getWarehouseAddress,
 								new JsonObject().put("code", whCode), whRet->{
 									if(whRet.succeeded()){

@@ -1,4 +1,4 @@
-package ocr.channel.organization;
+package ocr.channel.channeldoc;
 
 
 import io.vertx.core.http.HttpMethod;
@@ -7,20 +7,17 @@ import ocr.common.handler.SampleSingleDocBaseHandler;
 import otocloud.common.ActionURI;
 import otocloud.framework.app.function.ActionDescriptor;
 import otocloud.framework.app.function.AppActivityImpl;
-import otocloud.framework.app.function.BizRootType;
-import otocloud.framework.app.function.BizStateSwitchDesc;
 import otocloud.framework.core.CommandMessage;
 import otocloud.framework.core.HandlerDescriptor;
-import otocloud.framework.core.OtoCloudBusMessage;
 /**
- * 库存中心：库区-查询
+ * 库存中心：仓库
  * 
  * @date 2016年11月20日
  * @author LCL
  */
 //业务活动功能处理器
 public class ChannelRemoveHandler  extends SampleSingleDocBaseHandler {
-	
+	public static final String ADDRESS = "remove";
 
 	public ChannelRemoveHandler(AppActivityImpl appActivity) {
 		super(appActivity);
@@ -50,7 +47,7 @@ public class ChannelRemoveHandler  extends SampleSingleDocBaseHandler {
 	@Override
 	public String getEventAddress() {
 		// TODO Auto-generated method stub
-		return ChannelConstant.REMOVE_ADDRESS;
+		return ADDRESS;
 	}
 	
 	@Override
@@ -63,11 +60,11 @@ public class ChannelRemoveHandler  extends SampleSingleDocBaseHandler {
 		ActionURI uri = new ActionURI(getEventAddress(), HttpMethod.POST);
 		handlerDescriptor.setRestApiURI(uri);
 
-		// 状态变化定义
-		BizStateSwitchDesc bizStateSwitchDesc = new BizStateSwitchDesc(BizRootType.BIZ_OBJECT, null, ChannelConstant.REMOVE_STATUS);
+/*		// 状态变化定义
+		BizStateSwitchDesc bizStateSwitchDesc = new BizStateSwitchDesc(BizRootType.BIZ_OBJECT, null, WarehouseConstant.REMOVE_STATUS);
 		bizStateSwitchDesc.setWebExpose(true); // 是否向web端发布事件
 		actionDescriptor.setBizStateSwitch(bizStateSwitchDesc);
-
+*/
 		return actionDescriptor;
 	}
 	

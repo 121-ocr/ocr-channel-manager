@@ -1,4 +1,4 @@
-package ocr.channel.organization;
+package ocr.channel.channeldoc;
 
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.json.JsonArray;

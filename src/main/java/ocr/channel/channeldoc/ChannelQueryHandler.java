@@ -1,4 +1,4 @@
-package ocr.channel.organization;
+package ocr.channel.channeldoc;
 
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.json.JsonObject;
@@ -7,34 +7,32 @@ import otocloud.framework.app.common.PagingOptions;
 import otocloud.framework.app.function.ActionDescriptor;
 import otocloud.framework.app.function.ActionHandlerImpl;
 import otocloud.framework.app.function.AppActivityImpl;
-import otocloud.framework.core.CommandMessage;
 import otocloud.framework.core.HandlerDescriptor;
+import otocloud.framework.core.CommandMessage;
 
 /**
- * TODO: 渠道列表查询
- * @date 2016年11月15日
- * @author lijing
+ * 库存组织规划：对象（仓库档案）-查询
+ * 
+ * @date 2016年11月20日
+ * @author LCL
  */
+// 业务活动功能处理器
 public class ChannelQueryHandler extends ActionHandlerImpl<JsonObject> {
-	
+
 	public static final String ADDRESS = "findall";
 
 	public ChannelQueryHandler(AppActivityImpl appActivity) {
 		super(appActivity);
-		// TODO Auto-generated constructor stub
+
 	}
 
-	//此action的入口地址
+	// 此action的入口地址
 	@Override
 	public String getEventAddress() {
-		// TODO Auto-generated method stub
 		return ADDRESS;
 	}
 
-    /**
-     * 查询渠道专员所负责的渠道
-     * 1、分页条件中传入渠道专员作为条件：   query: { channel_assistant: lj } 
-     */
+	// 处理器
 	@Override
 	public void handle(CommandMessage<JsonObject> msg) {
 		
@@ -53,30 +51,20 @@ public class ChannelQueryHandler extends ActionHandlerImpl<JsonObject> {
 	    });
 
 	}
-	
 
 	/**
 	 * 此action的自描述元数据
 	 */
 	@Override
-	public ActionDescriptor getActionDesc() {		
-		
+	public ActionDescriptor getActionDesc() {
+
 		ActionDescriptor actionDescriptor = super.getActionDesc();
 		HandlerDescriptor handlerDescriptor = actionDescriptor.getHandlerDescriptor();
-		//handlerDescriptor.setMessageFormat("command");
-		
-		//参数
-/*		List<ApiParameterDescriptor> paramsDesc = new ArrayList<ApiParameterDescriptor>();
-		paramsDesc.add(new ApiParameterDescriptor("targetacc",""));		
-		paramsDesc.add(new ApiParameterDescriptor("soid",""));		
-		
-		actionDescriptor.getHandlerDescriptor().setParamsDesc(paramsDesc);	*/
-				
+
 		ActionURI uri = new ActionURI(ADDRESS, HttpMethod.POST);
 		handlerDescriptor.setRestApiURI(uri);
-		
+
 		return actionDescriptor;
 	}
-	
-	
+
 }
